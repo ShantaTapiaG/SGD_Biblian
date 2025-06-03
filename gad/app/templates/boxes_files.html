@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+Caja | PDFs
+{% endblock %}
+
+{% block content %}
+<h2 class="section-title">Archivos: <span class="total-results" id="total-results"></span></h2>
+<input type="hidden" name="" id="box-id" data-id="{{box.id}}">
+<fieldset class="fieldset">
+  <legend>Datos de la Caja</legend>
+  <div>
+    <b>N°: </b>
+    <p>{{ box.number }}</p>
+  </div>
+  <div>
+    <b>Sección documental: </b>
+    <p>{{ box.section }}</p>
+  </div>
+  <div>
+    <b>Subsección documental: </b>
+    <p>{{ box.subsection }}</p>
+  </div>
+  <div>
+    <b>Fecha Inicio: </b>
+    <p>{{ box.initial_date }}</p>
+  </div>
+  <div>
+    <b>Fecha Final: </b>
+    <p>{{ box.final_date }}</p>
+  </div>
+  <div>
+    <b>N° Expediente: </b>
+    <p>{{ box.file_number }}</p>
+  </div>
+  <div>
+    <b>Serie documental: </b>
+    <p>{{ box.series }}</p>
+  </div>
+  <div>
+    <b>Subserie documental: </b>
+    <p>{{ box.series }}</p>
+  </div>
+</fieldset>
+  <!-- Botón para abrir el modal -->
+<div class="btns-top">
+  <a href="{% url 'boxes_data' %}" class="btn btn-secondary" ><i class="fa-solid fa-arrow-left"></i></a>
+  <button type="button" class="btn btn-primary btn-new" id="btn-new" data-bs-toggle="modal" data-bs-target="#newFile">
+    Añadir
+  </button>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="newFile" tabindex="-1" aria-labelledby="newBoxLabel" aria-hidden="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="newBoxLabel">NUEVO ARCHIVO</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="box-file-form">
+          <input type="hidden" name="box-id" id="box-id" value="{{box.id}}">
+          <div class="mb-3">
+            <label for="name" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="Nombre archivo" required>
+          </div>
+          <div class="mb-3">
+            <label for="file-types" class="form-label">Tipo documento</label>
+            <select class="form-select" id="file-types" name="file-types" required>
+              <option value="">Seleccionar tipo</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="fileUpload" class="form-label">Subir Archivo</label>
+            <input type="file" class="form-control" id="file-upload" name="file-upload">
+          </div>
+          <div class="mb-3">
+            <label for="fecha_creado" class="form-label">Fecha creación:</label>
+            <input type="date" class="form-control" id="created-date" name="created-date" required>
+          </div>
+          <div class="mb-3">
+            <label for="description" class="form-label">Descripción</label>
+            <textarea class="form-control" id="description" rows="5" name="description" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-new">Guardar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal para emitir los documentos para prestamos -->
+<div class="modal fade" id="document_PDF" tabindex="-1" aria-labelledby="newBoxLabel" aria-hidden="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="newBoxLabel">Prestar Documento</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="borrow-form">
+          <div class="mb-3">
+            <label for="dni" class="form-label">Cédula</label>
+            <input type="text" class="form-control" id="dni" name="dni" placeholder="12xxxxxxxx" required>
+          </div>
+          <div class="mb-3">
+            <label for="person-name" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="person-name" name="name" placeholder="Jhon Doe" required>
+          </div>
+          <div class="mb-3">
+            <label for="person-telephone" class="form-label">Telefono</label>
+            <input type="text" class="form-control" id="person-telephone" name="telephone" placeholder="09xxxxxxxx" required>
+          </div>
+          <div class="mb-3">
+            <label for="person-address" class="form-label">Dirección</label>
+            <input type="text" class="form-control" id="person-address" name="address" placeholder="Av. libertad ..." required>
+          </div>
+          <button type="submit" class="btn btn-primary btn-new">Prestar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="ui-global">
+  <div class="ui-container">
+    <table id="myTable">
+      <thead>
+        <tr>
+          <th class="col-table">N°</th>
+          <th class="col-table">Nombre:</th>
+          <th class="col-table">Tipo Doc:</th>
+          <th class="col-table">Descripción:</th>
+          <th class="col-table">Fecha emisión:</th>
+          <th class="col-table">Opciones</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>
+</table>
+<!-- v5 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+<script src="{% static 'js/constants.js'%}"></script>
+<script src="{% static 'js/fetchRequest.js'%}"></script>
+<script src="{% static 'js/tableUI.js'%}"></script>
+<script src="{% static 'js/nameValidator.js'%}"></script>
+<script src="{% static 'js/dniValidator.js'%}"></script>
+<script src="{% static 'js/createPDF.js'%}"></script>
+<script src="{% static 'js/boxesFiles.js'%}"></script>
+<script src="{% static 'js/filesListener.js' %}"></script>
+{% endblock %}

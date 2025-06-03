@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+Panel | Cajas
+{% endblock %}{% block content %}
+<h2 class="section-title">Cajas: <span class="total-results" id="total-results"></span></h2>
+
+<!-- Botón para abrir el modal -->
+<button id="btn-new-box" type="button" class="btn btn-primary btn-new-free" data-bs-toggle="modal" data-bs-target="#newBox">
+  Nueva
+</button>
+<!-- Modal -->
+<div class="modal fade" id="newBox" tabindex="-1" aria-labelledby="newBoxLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="newBoxLabel">NUEVA CAJA</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="box-form">
+          <div class="mb-3">
+            <label for="box-number" class="form-label">Número</label>
+            <input type="number" class="form-control" id="box-number" name="box-number" placeholder="Número de caja">
+          </div>
+          <div class="mb-3">
+            <label for="seccion_documental" class="form-label">Sección documental</label>
+            <select class="form-select" id="seccion_documental" name="section"></select>
+          </div>
+          <div class="mb-3">
+            <label for="subseccion_documental" class="form-label">Subsección documental</label>
+            <select class="form-select" id="subseccion_documental" name="subsection"></select>
+          </div>
+          <label class="form-label">Serie documental</label>
+          <div id="series" class="mb-3 box-limited">
+            <!-- Checkboxes para selección múltiple -->
+          </div>
+          <label class="form-label">Subserie documental</label>
+          <div id="subseries" class="mb-3 box-limited">
+            <!-- Checkboxes para selección múltiple -->
+          </div>
+          <div class="mb-3">
+            <label for="file-number" class="form-label">Número de expediente</label>
+            <input type="number" class="form-control" id="file-number" name="file-number" placeholder="N°">
+          </div>
+          <div class="mb-3">
+            <label for="initial-date" class="form-label">Fecha Inicio:</label>
+            <input type="date" class="form-control" id="initial-date" name="initial-date">
+          </div>
+          <div class="mb-3">
+            <label for="final-date" class="form-label">Fecha Fin :</label>
+            <input type="date" class="form-control" id="final-date" name="final-date">
+          </div>
+          <button type="submit" class="btn btn-primary btn-new" id="btn-box">Guardar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="ui-global">
+  <div class="ui-container">
+    <table id="myTable">
+      <thead>
+        <tr>
+          <th class="col-table">N°</th>
+          <th class="col-table">Núm. Caja:</th>
+          <th class="col-table">N° Expediente:</th>
+          <th class="col-table">Fecha In:</th>
+          <th class="col-table">Fecha Fin:</th>
+          <th class="col-table">Creado:</th>
+          <th class="col-table">Actualizado:</th>
+          <th class="col-table">Sección:</th>
+          <th class="col-table">Subsección:</th>
+          <th class="col-table">Series Doc:</th>
+          <th class="col-table">Subseries Doc:</th>
+          <th class="col-table">Opciones</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>
+<script src="{% static 'js/constants.js'%}"></script>
+<script src="{% static 'js/tableUI.js'%}"></script>
+<script src="{% static 'js/fetchRequest.js'%}"></script>
+<script src="{% static 'js/boxesOptions.js'%}"></script>
+<script src="{% static 'js/boxes.js' %}"></script>
+{% endblock %}

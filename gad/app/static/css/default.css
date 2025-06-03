@@ -1,0 +1,88 @@
+.btn-new {
+  width: 100%;
+  max-width: 150px;
+}
+
+.btn-new-free {
+  width: 100%;
+  max-width: 150px;
+  margin-bottom: 1rem;
+}
+/* Clase para limitar la altura de la caja de las series documentales del formulario */
+.box-limited {
+  height: fit-content;
+  max-height: 150px;
+  overflow-y: auto;
+  border: 1px solid var(--bs-border-color);
+  padding: 10px;
+}
+
+/* Clase personalizada para ajustar el ancho del modal */
+.modal-dialog {
+  max-width: 80vw; /* 80% del ancho del viewport */
+}
+
+.btns {
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  height: fit-content;
+}
+
+.btns > .btn {
+  flex: 1;
+}
+
+.icon-row {
+  pointer-events: none;
+}
+
+.btns-top {
+  display: flex;
+  width: 100%;
+  gap: 10px;
+  align-items: center;
+}
+
+fieldset {
+  display: flex;
+  flex-wrap: wrap;
+  border: 1px solid var(--bs-border-color);
+  padding: 1rem;
+  gap: 1rem;
+}
+
+fieldset div {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  min-width: 250px;
+  border: 1px solid rgb(145, 207, 243);
+  color: rgb(41, 136, 143);
+}
+
+fieldset div p {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.fieldset {
+  margin-bottom: 1rem;
+  background: #e8fdfd;
+  color: rgb(41, 136, 143);
+}
+
+footer {
+  width: 100%;
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  color: rgb(156, 156, 156);
+  align-self: flex-end;
+}
+

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+Panel - Inicio
+{% endblock %}
+
+{% block content %}
+<h1>Inicio</h1>
+<hr>
+<div id="container"></div>
+<script src="{% static 'js/constants.js'%}"></script>
+<script src="{% static 'js/home.js'%}"></script>
+{% endblock %}

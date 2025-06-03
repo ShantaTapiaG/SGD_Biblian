@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> ERROR 403 | RESTRINGIDO</title>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Courier New', Courier, monospace;
+    }
+
+    body {
+      width: 100%;
+      height: 100vh;
+      max-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      background: black;
+      color: white;
+    }
+
+    .restricted-icon {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%; /* Hace que el div sea circular */
+    background-color: red; /* Color de fondo del círculo */
+    position: relative; /* Posiciona las líneas dentro del círculo */
+}
+
+.restricted-icon::before,
+.restricted-icon::after {
+    content: '';
+    position: absolute;
+    background-color: white; /* Color de la cruz */
+}
+
+/* Línea diagonal 1 (de izquierda a derecha) */
+.restricted-icon::before {
+    width: 10px; /* Ancho de la línea */
+    height: 70%; /* Altura de la línea */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg); /* Gira la línea 45 grados */
+}
+
+/* Línea diagonal 2 (de derecha a izquierda) */
+.restricted-icon::after {
+    width: 10px;
+    height: 70%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-45deg); /* Gira la línea -45 grados */
+}
+
+
+  </style>
+</head>
+<body>
+  <div class="restricted-icon"></div>
+  <h1>Archivo no encontrado</h1>
+    <p>{{error}}</p>
+</body>
+</html>
